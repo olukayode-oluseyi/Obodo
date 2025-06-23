@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Obodo-mobile-app",
-    "slug": "Obodo-mobile-app",
+    "name": "Audio-mind",
+    "slug": "audio-mind",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "obodomobileapp",
+    "scheme": "audio-mind",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
