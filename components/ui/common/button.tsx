@@ -1,15 +1,15 @@
 // components/ui/common/button.tsx
-import { Text } from "@/theme/component";
+import { Text, XView } from "@/theme/component";
 import {
-    createRestyleComponent,
-    createVariant,
-    VariantProps,
+  createRestyleComponent,
+  createVariant,
+  VariantProps,
 } from "@shopify/restyle";
-import React from "react";
+import React, { ReactNode } from "react";
 import {
-    ActivityIndicator,
-    TouchableOpacity,
-    TouchableOpacityProps,
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableOpacityProps,
 } from "react-native";
 import { AppTheme } from "../../../theme/types";
 
@@ -21,6 +21,8 @@ const ButtonContainer = createRestyleComponent<
 type ButtonProps = {
   title: string;
   variant?: keyof AppTheme["buttonVariants"];
+  variantText?: keyof AppTheme["textVariants"];
+  icon?: ReactNode;
   loading?: boolean;
   disabled?: boolean;
   onPress?: () => void;
@@ -28,9 +30,11 @@ type ButtonProps = {
 
 export const Button: React.FC<ButtonProps> = ({
   title,
+  variantText = "button",
   variant = "primary",
   loading = false,
   disabled = false,
+  icon,
   onPress,
   ...rest
 }) => {
@@ -46,15 +50,10 @@ export const Button: React.FC<ButtonProps> = ({
       {loading ? (
         <ActivityIndicator color="#FFF" />
       ) : (
-        <Text
-          textAlign={"center"}
-          fontSize={16}
-          fontWeight={"700"}
-          color={"background"}
-          variant="button"
-        >
-          {title}
-        </Text>
+        <XView flexDirection={"row"} alignItems={"center"} gap={'s'}>
+          {icon}
+          <Text variant={variantText}>{title}</Text>
+        </XView>
       )}
     </ButtonContainer>
   );

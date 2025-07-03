@@ -3,8 +3,17 @@ import { createBox, createText } from '@shopify/restyle';
 import { TouchableOpacity } from 'react-native';
 import type { AppTheme } from './types';
 
-export const Box = createBox<AppTheme>();
+export const XView = createBox<AppTheme>();
+export const YView = createBox<AppTheme>();
 export const Text = createText<AppTheme>();
+
+// XView.defaultProps = {
+//   flexDirection: 'row',
+// };
+
+// YView.defaultProps = {
+//   flexDirection: 'column',
+// };
 
 
 // Themed TouchableOpacity

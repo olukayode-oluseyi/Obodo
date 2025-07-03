@@ -1,16 +1,16 @@
 import { Stack } from "expo-router";
 import React from "react";
 
-const AuthLayout = () => {
+const OnboardingLayout = () => {
   return (
     <Stack
       screenOptions={{
         headerShown: false,
-        animation: "fade",
+       
         //presentation: 'modal'
       }}
     />
   );
 };
 
-export default AuthLayout;
+export default OnboardingLayout;
