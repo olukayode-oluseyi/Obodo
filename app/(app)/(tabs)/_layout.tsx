@@ -1,45 +1,53 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { TabList, Tabs, TabSlot, TabTrigger, } from "expo-router/ui";
+import React from "react";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import TabTriggerButton from "@/components/ui/common/layouts/TabTriggerButton";
+import { XView } from "@/theme/component";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { bottom } = useSafeAreaInsets();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+    <Tabs>
+      <TabSlot />
+      <TabList asChild>
+        <XView
+          position={"absolute"}
+          // left={20}
+          // right={20}
+          bottom={32}
+          padding={"s"}
+          alignSelf={"center"}
+          backgroundColor={"black"}
+          borderRadius={"bottonPrimaryRadius"}
+          gap={"xs"}
+          paddingVertical={"s"}
+        >
+          <TabTrigger name="home" href="/(app)/(tabs)" asChild>
+            <TabTriggerButton title={"Home"} />
+          </TabTrigger>
+          <TabTrigger name="post" href="/(app)/(tabs)/post" asChild>
+            <TabTriggerButton title={"Posts"} />
+          </TabTrigger>
+          <TabTrigger name="event" href="/(app)/(tabs)/event" asChild>
+            <TabTriggerButton title={"Events"} />
+          </TabTrigger>
+          <TabTrigger name="profile" href="/(app)/(tabs)/profile" asChild>
+            <TabTriggerButton title={"Profile"} />
+          </TabTrigger>
+          {/* <TabTrigger
+            name="home"
+            href="/(app)/(tabs)"
+            asChild
+          >
+            <TabTriggerButton
+  
+              title={"Transactions"}
+            />
+          </TabTrigger> */}
+        </XView>
+      </TabList>
     </Tabs>
   );
 }

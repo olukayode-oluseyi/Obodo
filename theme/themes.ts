@@ -2,6 +2,7 @@ import { createTheme } from "@shopify/restyle";
 
 const baseSpacing = {
   none: 0,
+  x2: 2,
   xs: 4,
   s: 8,
   m: 12,
@@ -12,13 +13,16 @@ const baseSpacing = {
   x32: 32,
   ml: 36,
   xl: 40,
-  x64: 64
+  x64: 64,
 };
 
 const baseBorderRadii = {
   s: 4,
   m: 10,
-  l: 25,
+  x12: 12,
+  x16: 16,
+  x20: 20,
+  l: 24,
   xl: 50,
 
   bottonPrimaryRadius: 500,
@@ -35,12 +39,25 @@ export const lightTheme = createTheme({
     backgroundTertiary: "#F5F5F5",
     borderLight: "#E8E8E8",
     white: "#FFFFFF",
+    black: "#000000",
 
 
-    ProductBlack500: '#848489',
-
+    borderColor: "#99999D",
+    GrayScale100: "#F6F6F6",
+    GrayScale600: "#626265",
+    GrayScale900: "#1E1F23",
+    ProductBlack100: "#F5F5F5",
+    ProductBlack200: "#E8E8E8",
+    ProductBlack500: "#848489",
+    ProductBlack600: "#707075",
+    ProductBlack5002: "#5B5B61",
+    Green200: "#D3F5DF",
+    Green300: "#A7EBBE",
+    Warning100: "#FFD500",
     welcomeCurrentIndex: "#242424",
     _welcomeCurrentIndex: "#E4E4E4",
+
+    _: '#F4F4F4'
   },
   fontFamilies: {
     regular: "InterRegular",
@@ -69,6 +86,19 @@ export const lightTheme = createTheme({
       color: "text",
       fontFamily: "InterBold",
       lineHeight: 32,
+    },
+    homeSubHeading: {
+      fontFamily: "InterBold",
+      fontSize: 18,
+      lineHeight: 26,
+      color: "text",
+    },
+
+    homeSubHeading2: {
+      fontFamily: "InterBold",
+      fontSize: 16,
+      lineHeight: 22,
+      color: "text",
     },
 
     button: {

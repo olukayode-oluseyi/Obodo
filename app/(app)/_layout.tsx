@@ -1,5 +1,5 @@
 //import { useAuthStore } from "@/store/authStore";
-import { Redirect } from "expo-router";
+import { Stack } from "expo-router";
 
 export default function AppLayout() {
 
@@ -7,17 +7,17 @@ export default function AppLayout() {
 
 
 
-  if (true) {
+  // if (false) {
 
-    return <Redirect href={"/welcome"} />;
+  //   return <Redirect href={"/welcome"} />;
     
-  }
-  // return (
+  // }
+  return (
 
-  //   <Stack
-  //     screenOptions={{
-  //       headerShown: false,
-  //     }}
-  //   />
-  // );
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
+  );
 }
