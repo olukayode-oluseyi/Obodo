@@ -21,7 +21,7 @@ const ButtonContainer = createRestyleComponent<
 type ButtonProps = {
   title: string;
   variant?: keyof AppTheme["buttonVariants"];
-  variantText?: keyof AppTheme["textVariants"];
+  variantText?: any;
   icon?: ReactNode;
   loading?: boolean;
   disabled?: boolean;

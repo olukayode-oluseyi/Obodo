@@ -5,6 +5,7 @@ const baseSpacing = {
   x2: 2,
   xs: 4,
   s: 8,
+  x10: 10,
   m: 12,
   x16: 16,
   x20: 20,
@@ -17,7 +18,7 @@ const baseSpacing = {
 };
 
 const baseBorderRadii = {
-  s: 4,
+  s: 8,
   m: 10,
   x12: 12,
   x16: 16,
@@ -48,6 +49,8 @@ export const lightTheme = createTheme({
     GrayScale900: "#1E1F23",
     ProductBlack100: "#F5F5F5",
     ProductBlack200: "#E8E8E8",
+    ProductBlack300: "#D6D6D8",
+    ProductBlack400: "#99999D",
     ProductBlack500: "#848489",
     ProductBlack600: "#707075",
     ProductBlack5002: "#5B5B61",
@@ -99,6 +102,12 @@ export const lightTheme = createTheme({
       fontSize: 16,
       lineHeight: 22,
       color: "text",
+    },
+    postFieldPostBtn: {
+      fontFamily: "InterSemiBold",
+      fontSize: 16,
+      lineHeight: 22,
+      color: "ProductBlack300"
     },
 
     button: {

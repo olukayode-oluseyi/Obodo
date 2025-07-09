@@ -1,11 +1,10 @@
+import Posts from '@/features/in-app/posts/screens/Posts'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const Post = () => {
   return (
-    <View>
-      <Text>Post</Text>
-    </View>
+    <Posts/>
   )
 }
 
