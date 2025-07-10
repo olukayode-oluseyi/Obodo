@@ -10,18 +10,20 @@ import { Text, XView, YView } from "@/theme/component";
 import { useTheme } from "@shopify/restyle";
 import React, { useState } from "react";
 import {
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    useWindowDimensions,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import PostImageDisplay from "./PostImageDisplay";
 
 const PostField = () => {
   const theme = useTheme<AppTheme>();
   const { width, height } = useWindowDimensions();
+  
   const { pickImages, images, clearImages } = useImagePicker();
     const [post, setPost] = useState('')
+    console.log(images)
   const postActions = [
     {
       icon: <ImgIcon />,

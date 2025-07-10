@@ -47,6 +47,7 @@ export const lightTheme = createTheme({
     GrayScale100: "#F6F6F6",
     GrayScale600: "#626265",
     GrayScale900: "#1E1F23",
+    UIDark100: "#F2F3F4",
     ProductBlack100: "#F5F5F5",
     ProductBlack200: "#E8E8E8",
     ProductBlack300: "#D6D6D8",

@@ -1,17 +1,15 @@
-import OptionsIcon from "@/assets/icons/options.svg";
-import { Text, XView, YView } from "@/theme/component";
+import { Text, YView } from "@/theme/component";
 import React from "react";
-import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Image } from "expo-image";
 import {
-    DataProvider,
-    LayoutProvider,
-    RecyclerListView,
+  DataProvider,
+  LayoutProvider,
+  RecyclerListView,
 } from "recyclerlistview";
 import PostField from "../components/PostField";
-import PostImageDisplay from "../components/PostImageDisplay";
+import Postcard from "../components/Postcard";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -23,7 +21,6 @@ const layoutProvider = new LayoutProvider(
   () => 0,
   (type, dim) => {
     dim.width = SCREEN_WIDTH;
-    dim.height = 480;
   }
 );
 
@@ -35,82 +32,48 @@ const Posts = () => {
       flex={1}
       bottom={bottom}
       backgroundColor={"backgroundTertiary"}
-      top={top + 10}
+      // gap={"x16"}
+      // top={top + 10}
     >
-      <YView paddingHorizontal={"x16"}>
-        <Text
-          fontFamily={"InterBold"}
-          fontSize={24}
-          lineHeight={36}
-          color={"text"}
-        >
-          Posts
-        </Text>
+      <YView
+        position={"absolute"}
+        zIndex={100}
+        left={16}
+        right={16}
+        style={{
+          top: top + 20,
+          //display: "none",
+        }}
+        gap={"x16"}
+        //paddingHorizontal={"x16"}
+      >
+        <YView>
+          <Text
+            fontFamily={"InterBold"}
+            fontSize={24}
+            lineHeight={36}
+            color={"text"}
+          >
+            Posts
+          </Text>
+        </YView>
+        <PostField />
       </YView>
 
-      <YView flex={1} p={"x16"} gap={"x16"}>
-        <PostField />
+      <YView flex={1} paddingHorizontal={"x16"} style={{}} gap={"x16"}>
         <RecyclerListView
           style={{ flex: 1 }}
           contentContainerStyle={{
             paddingBottom: 300,
+            paddingTop: 16,
             gap: 16,
             // padding: 16,
           }}
+          forceNonDeterministicRendering={true}
           layoutProvider={layoutProvider}
           dataProvider={dataProvider}
           rowRenderer={(type, data, index) => {
-            return (
-              <YView
-                borderRadius={"l"}
-                height={460}
-                backgroundColor={"white"}
-                gap={"x16"}
-                padding={"x16"}
-              >
-                <YView
-                  flexDirection={"row"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <XView
-                    flexDirection={"row"}
-                    alignItems={"center"}
-                    gap={"x16"}
-                  >
-                    <YView>
-                      <Image
-                        style={{
-                          height: 40,
-                          width: 40,
-                        }}
-                        source={require("@/assets/images/Avatar (1).png")}
-                      />
-                    </YView>
-
-                    <YView>
-                      <Text>Plogged</Text>
-                      <Text>Just now</Text>
-                    </YView>
-                  </XView>
-                  <TouchableOpacity>
-                    <OptionsIcon />
-                  </TouchableOpacity>
-                </YView>
-                <YView gap={"x16"}>
-                  <YView>
-                    <Text>
-                      Lorem ipsum, or lipsum as it is sometimes known, is dummy
-                      text used in laying out print, graphic or web designs.
-                    </Text>
-                  </YView>
-                  <PostImageDisplay images={[""]} handleCancel={() => null} />
-                    <XView flexDirection={'row'} alignItems={'center'} gap={'l'}>
-
-                    </XView>
-                </YView>
-              </YView>
-            );
+            return <Postcard index={index} />;
           }}
         />
       </YView>

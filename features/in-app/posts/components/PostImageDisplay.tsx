@@ -13,7 +13,7 @@ import {
 
 interface PostImageDisplayProps {
   images: string[];
-  handleCancel: (uri: string) => void;
+  handleCancel?: (uri: string) => void;
 }
 
 const IMAGE_SIZE = 100;
@@ -36,34 +36,42 @@ const PostImageDisplay: React.FC<PostImageDisplayProps> = ({
       const imageHeight = isSingleImage ? 312 : 151.5;
       return (
         <YView
-          ml={index === 0 ? "x16" : "none"}
-          mr={index + 1 === images.length ? "x16" : "none"}
+          ml={handleCancel ? (index === 0 ? "x16" : "none") : "none"}
+          mr={
+            handleCancel
+              ? index + 1 === images.length
+                ? "x16"
+                : "none"
+              : "none"
+          }
         >
-          <TouchableOpacity
-            onPress={() => {
-              handleCancel(item);
-            }}
-            activeOpacity={0.9}
-            style={{
-              position: "absolute",
-              top: 12,
-              right: 12,
-              zIndex: 10,
-            }}
-          >
-            <YView
-              justifyContent={"center"}
-              alignItems={"center"}
-              borderRadius={"s"}
-              height={24}
-              width={24}
-              backgroundColor={"ProductBlack100"}
+          {handleCancel && (
+            <TouchableOpacity
+              onPress={() => {
+                handleCancel?.(item);
+              }}
+              activeOpacity={0.9}
+              style={{
+                position: "absolute",
+                top: 12,
+                right: 12,
+                zIndex: 10,
+              }}
             >
-              <CloseIcon fill={theme.colors.text} />
-            </YView>
-          </TouchableOpacity>
+              <YView
+                justifyContent={"center"}
+                alignItems={"center"}
+                borderRadius={"s"}
+                height={24}
+                width={24}
+                backgroundColor={"ProductBlack100"}
+              >
+                <CloseIcon fill={theme.colors.text} />
+              </YView>
+            </TouchableOpacity>
+          )}
           <Image
-            source={item}            
+            source={item}
             style={{
               width: imageWidth,
               height: imageHeight,
