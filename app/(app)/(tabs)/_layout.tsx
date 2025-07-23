@@ -36,6 +36,8 @@ export default function TabLayout() {
           <TabTrigger name="profile" href="/(app)/(tabs)/profile" asChild>
             <TabTriggerButton title={"Profile"} />
           </TabTrigger>
+
+         
           {/* <TabTrigger
             name="home"
             href="/(app)/(tabs)"

@@ -15,15 +15,16 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+import CreatePoll from "./CreatePoll";
 import PostImageDisplay from "./PostImageDisplay";
 
 const PostField = () => {
   const theme = useTheme<AppTheme>();
   const { width, height } = useWindowDimensions();
-  
+
   const { pickImages, images, clearImages } = useImagePicker();
-    const [post, setPost] = useState('')
-    console.log(images)
+  const [post, setPost] = useState("");
+  const [postType, setPostType] = useState<"poll" | "post">("post");
   const postActions = [
     {
       icon: <ImgIcon />,
@@ -34,6 +35,7 @@ const PostField = () => {
     {
       icon: <PollIcon />,
       onPress: async () => {
+        setPostType("poll");
         //await pickImage();
       },
     },
@@ -74,19 +76,23 @@ const PostField = () => {
           </XView>
         </XView>
       </YView>
-      <TextInput
-        multiline
-        onChangeText={(val)=>setPost(val)}
-        placeholderTextColor={theme.colors.ProductBlack400}
-        style={{
-          paddingHorizontal: 16,
-          fontSize: 16,
-          lineHeight: 22,
-          color: theme.colors.ProductBlack400,
-          fontFamily: theme.fontFamilies.medium,
-        }}
-        placeholder="What do you want to talk about?"
-      />
+      {postType === "post" ? (
+        <TextInput
+          multiline
+          onChangeText={(val) => setPost(val)}
+          placeholderTextColor={theme.colors.ProductBlack400}
+          style={{
+            paddingHorizontal: 16,
+            fontSize: 16,
+            lineHeight: 22,
+            color: theme.colors.ProductBlack400,
+            fontFamily: theme.fontFamilies.medium,
+          }}
+          placeholder="What do you want to talk about?"
+        />
+      ) : (
+        <CreatePoll handleClose={() => setPostType("post")} />
+      )}
       {images.length > 0 && (
         <XView
           width={"100%"}
@@ -141,7 +147,10 @@ const PostField = () => {
           style={{
             height: 40,
             paddingHorizontal: 20,
-            backgroundColor:  post.length > 0 ? theme.colors.primary : theme.colors.ProductBlack100,
+            backgroundColor:
+              post.length > 0
+                ? theme.colors.primary
+                : theme.colors.ProductBlack100,
           }}
           title="Post"
         />

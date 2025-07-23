@@ -55,6 +55,7 @@ export const lightTheme = createTheme({
     ProductBlack500: "#848489",
     ProductBlack600: "#707075",
     ProductBlack5002: "#5B5B61",
+    Green100: "#E9FAEF",
     Green200: "#D3F5DF",
     Green300: "#A7EBBE",
     Warning100: "#FFD500",
