@@ -31,7 +31,7 @@ const HomeInsights = () => {
     <YView gap={"x20"}>
       <XView
         gap={"x16"}
-        paddingHorizontal={"l"}
+        paddingHorizontal={"x20"}
         flexDirection={"row"}
         alignItems={"center"}
       >
@@ -40,7 +40,7 @@ const HomeInsights = () => {
         >
           Insights
         </Text>
-        <Text color={"ProductBlack5002"}>Last 30 days</Text>
+        <Text color={"ProductBlack700"}>Last 30 days</Text>
       </XView>
       <FlatList
         horizontal

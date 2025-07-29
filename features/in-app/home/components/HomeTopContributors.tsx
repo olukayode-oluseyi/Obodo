@@ -32,7 +32,7 @@ const HomeTopContributors = () => {
   return (
     <YView
       padding={"x16"}
-      marginHorizontal={"l"}
+      marginHorizontal={"x20"}
       borderRadius={"l"}
       gap={"s"}
       backgroundColor={"white"}
@@ -57,7 +57,7 @@ const HomeTopContributors = () => {
                 alignItems={"center"}
                 justifyContent={"space-between"}
               >
-                <YView gap={'m'} flexDirection={"row"} alignItems={"center"}>
+                <YView gap={"m"} flexDirection={"row"} alignItems={"center"}>
                   <YView>
                     <Image
                       contentFit="cover"
@@ -90,11 +90,15 @@ const HomeTopContributors = () => {
                 <YView
                   height={24}
                   width={24}
-                  borderRadius={'bottonPrimaryRadius'}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  backgroundColor={"Warning100"}
-                ><Text fontSize={12} lineHeight={16} >1</Text></YView>
+                  borderRadius={"bottonPrimaryRadius"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  backgroundColor={id === 0 ? "Yellow100" : "ProductBlack200"}
+                >
+                  <Text fontSize={12} lineHeight={16}>
+                    {id + 1}
+                  </Text>
+                </YView>
               </YView>
             </TouchableOpacity>
           );

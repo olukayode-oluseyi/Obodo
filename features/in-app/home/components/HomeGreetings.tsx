@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 
 const HomeGreetings = () => {
   return (
-    <YView gap={"l"} padding={"l"} paddingBottom={"none"}>
+    <YView gap={"l"} padding={'x20'} paddingBottom={"none"}>
       <YView gap={"x16"}>
         <YView gap={"s"}>
           <Text
@@ -18,7 +18,7 @@ const HomeGreetings = () => {
           >
             Hello Drewee,
           </Text>
-          <Text lineHeight={24} color={"ProductBlack5002"}>
+          <Text lineHeight={24} color={"ProductBlack700"}>
             Welcome to Obodo. You can now manage and host your community like
             never before.
           </Text>

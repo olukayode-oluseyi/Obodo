@@ -26,7 +26,7 @@ const HomeHeader = () => {
             paddingRight={"x16"}
             backgroundColor={"white"}
           >
-            <NotificationIcon />
+            <NotificationIcon fill={'#707075'} />
 
             <Text
               lineHeight={22}

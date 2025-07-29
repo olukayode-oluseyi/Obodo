@@ -18,6 +18,7 @@ const baseSpacing = {
 };
 
 const baseBorderRadii = {
+  none: 0,
   s: 8,
   m: 10,
   x12: 12,
@@ -54,11 +55,14 @@ export const lightTheme = createTheme({
     ProductBlack400: "#99999D",
     ProductBlack500: "#848489",
     ProductBlack600: "#707075",
-    ProductBlack5002: "#5B5B61",
+    ProductBlack700: "#5B5B61",
+    Success200: "#D3F2D0",
     Green100: "#E9FAEF",
     Green200: "#D3F5DF",
     Green300: "#A7EBBE",
-    Warning100: "#FFD500",
+    Green800: '#27AE60',
+    Yellow100: "#FFD500",
+    Warning100: "#FFEAEB",
     welcomeCurrentIndex: "#242424",
     _welcomeCurrentIndex: "#E4E4E4",
 

@@ -1,15 +1,16 @@
 import Avatar from "@/assets/icons/avatar2.svg";
 import SendIcon from "@/assets/icons/send.svg";
 
+import GoBack from "@/components/ui/common/headers/GoBack";
 import { AppTheme } from "@/theme";
 import { Text, XView, YView } from "@/theme/component";
 import { useTheme } from "@shopify/restyle";
 import React from "react";
 import {
-    FlatList,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Commentcard from "../../components/Commentcard";
@@ -23,10 +24,17 @@ const SinglePostDetails = () => {
     return <Commentcard />;
   };
   return (
-    <YView flex={1} style={{}}>
+    <YView
+      flex={1}
+      style={{
+        paddingTop: top + 10,
+      }}
+    >
+      <YView gap={"x16"} paddingBottom={"s"} paddingHorizontal={"x16"}>
+        <GoBack />
+      </YView>
       <FlatList
         style={{
-          paddingTop: top + 10,
           backgroundColor: theme.colors.backgroundTertiary,
           paddingHorizontal: theme.spacing.x16,
         }}
@@ -81,7 +89,7 @@ const SinglePostDetails = () => {
               style={{
                 paddingHorizontal: theme.spacing.x16,
                 height: 32,
-                justifyContent: 'center',
+                justifyContent: "center",
                 borderWidth: 1,
                 borderColor: theme.colors.ProductBlack200,
                 borderRadius: theme.borderRadii.bottonPrimaryRadius,

@@ -6,6 +6,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { themes } from "@/theme";
 import { ThemeProvider } from "@shopify/restyle";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -16,7 +17,7 @@ export default function RootLayout() {
     InterSemiBold: require("../assets/fonts/Inter_24pt-SemiBold.ttf"),
     InterBold: require("../assets/fonts/Inter_24pt-Bold.ttf"),
     InterExtraBold: require("../assets/fonts/Inter_24pt-ExtraBold.ttf"),
-    MigraExtraBold: require("../assets/fonts/Migra-Extrabold.ttf")
+    MigraExtraBold: require("../assets/fonts/Migra-Extrabold.ttf"),
   });
 
   if (!loaded) {
@@ -25,10 +26,12 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Slot />
+    <GestureHandlerRootView>
+      <ThemeProvider theme={theme}>
+        <Slot />
 
-      <StatusBar style="dark" />
-    </ThemeProvider>
+        <StatusBar style="dark" />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

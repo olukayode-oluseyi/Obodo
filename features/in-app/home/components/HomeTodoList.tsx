@@ -19,7 +19,7 @@ const HomeTodoList = () => {
   return (
     <YView
       padding={"x16"}
-      marginHorizontal={'l'}
+      marginHorizontal={'x20'}
       borderRadius={"l"}
       gap={"s"}
       backgroundColor={"white"}
