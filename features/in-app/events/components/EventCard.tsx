@@ -1,8 +1,10 @@
 import CalenderIcon from "@/assets/icons/calender.svg";
 import VideoCameraIcon from "@/assets/icons/video-camera.svg";
 import Options from "@/components/ui/common/Options";
+import { UserEvent } from "@/services/types";
 
 import { Text, XView, YView } from "@/theme/component";
+import { formatDateTime } from "@/utils";
 
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -13,9 +15,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-const EventCard = () => {
+const EventCard = ({ item }: { item: UserEvent }) => {
   const { width } = useWindowDimensions();
   const router = useRouter();
+  const attendeesCount = item.registrants.count;
+  const attendeesAvatars = item.registrants.avatars;
+
+  
   return (
     <YView backgroundColor={"white"} marginVertical={"s"} borderRadius={"x20"}>
       <TouchableOpacity
@@ -35,20 +41,20 @@ const EventCard = () => {
               width: width - 32 - 24,
               borderRadius: 10,
             }}
-            source={require("@/assets/images/Cover.png")}
+            source={{ uri: item.cover }}
           />
         </XView>
         <YView gap={"s"} padding={"x20"}>
           <XView>
-            <Text variant={"homeSubHeading"}>The June Sitout 2024</Text>
+            <Text variant={"homeSubHeading"}>{item.title}</Text>
           </XView>
           <XView gap={"m"} flexDirection={"row"} alignItems={"center"}>
             <CalenderIcon />
-            <Text>03 Sep. 2021 at 3:00 PM</Text>
+            <Text>{formatDateTime(item.starts_at)}</Text>
           </XView>
           <XView gap={"m"} flexDirection={"row"} alignItems={"center"}>
             <VideoCameraIcon />
-            <Text>Virtual</Text>
+            <Text>{item.location.label}</Text>
           </XView>
         </YView>
         <XView
@@ -60,17 +66,22 @@ const EventCard = () => {
           padding={"x20"}
         >
           <XView flexDirection={"row"} alignItems={"center"} gap={"s"}>
-            <Image
-              style={{
-                height: 28,
-                width: 68,
-              }}
-              source={require("@/assets/images/PPs.png")}
-            />
-            <Text>10+ Attending</Text>
+            {attendeesAvatars.slice(0, 3).map((avatar) => (
+              <Image
+                style={{
+                  height: 28,
+                  width: 28,
+                  borderRadius: 14,
+                  marginRight: -8,
+                }}
+                source={{ uri: avatar.avatar_url }}
+              />
+            ))}
+
+            <Text>{attendeesCount}+ Attending</Text>
           </XView>
 
-        <Options/>
+          <Options />
         </XView>
       </TouchableOpacity>
     </YView>

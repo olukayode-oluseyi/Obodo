@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 const SinglePost = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  console.log(id, "ID");
+
   return <SinglePostDetails />;
 };
 

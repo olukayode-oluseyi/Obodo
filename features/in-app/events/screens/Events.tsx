@@ -1,5 +1,6 @@
 import PlusIcon from "@/assets/icons/plus3.svg";
 import PageHeaders from "@/components/ui/common/headers/PageHeaders";
+import useGetUserEvents from "@/hooks/useGetUserEvents";
 import { XView, YView } from "@/theme/component";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
@@ -15,19 +16,23 @@ import EventTabs from "../components/EventTabs";
 const Events = () => {
   const { top, bottom } = useSafeAreaInsets();
   const { width } = Dimensions.get("window");
+  const { data, isLoading, isError } = useGetUserEvents();
 
-  const data = React.useMemo(() => {
-    return [
-      { id: "1", title: "Event 1" },
-      { id: "2", title: "Event 2" },
-      { id: "3", title: "Event 3" },
-      { id: "4", title: "Event 4" },
-      { id: "5", title: "Event 5" },
-    ];
-  }, []);
+  console.log("data", data?.data[0].community_username, data?.data[0].title);
+
+
+  // const data = React.useMemo(() => {
+  //   return [
+  //     { id: "1", title: "Event 1" },
+  //     { id: "2", title: "Event 2" },
+  //     { id: "3", title: "Event 3" },
+  //     { id: "4", title: "Event 4" },
+  //     { id: "5", title: "Event 5" },
+  //   ];
+  // }, []);
 
   const dataProvider = React.useMemo(() => {
-    return new DataProvider((r1, r2) => r1.id !== r2.id).cloneWithRows(data);
+    return new DataProvider((r1, r2) => r1.id !== r2.id).cloneWithRows(data?.data || []);
   }, [data]);
 
   const layoutProvider = React.useMemo(() => {
@@ -82,7 +87,7 @@ const Events = () => {
                 paddingBottom: 200,
               },
             }}
-            rowRenderer={(type, item) => <EventCard />}
+            rowRenderer={(type, item) => <EventCard item={item} />}
             style={{ flex: 1 }}
             forceNonDeterministicRendering
             //canChangeSize

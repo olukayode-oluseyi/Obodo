@@ -17,9 +17,9 @@ export const useHaptics = () => {
    */
   const triggerMedium = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).then((res)=>{
-      console.log(res, 'resp')
+
     }).then((error)=>{
-      console.log(error, 'error')
+
     });
   }, []);
 

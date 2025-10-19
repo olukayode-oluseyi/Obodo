@@ -1,11 +1,13 @@
 import PlusIcon from "@/assets/icons/plus.svg";
 import { Button } from "@/components/ui/common/button";
+import { useAuthStore } from "@/services/stores/auth.store";
 import { Text, XView, YView } from "@/theme/component";
 import { Image } from "expo-image";
 import React from "react";
 import { StyleSheet } from "react-native";
 
 const HomeGreetings = () => {
+  const user = useAuthStore((state) => state.user);
   return (
     <YView gap={"l"} padding={'x20'} paddingBottom={"none"}>
       <YView gap={"x16"}>
@@ -16,7 +18,7 @@ const HomeGreetings = () => {
             lineHeight={36}
             color={"text"}
           >
-            Hello Drewee,
+            Hello {user?.firstname},
           </Text>
           <Text lineHeight={24} color={"ProductBlack700"}>
             Welcome to Obodo. You can now manage and host your community like

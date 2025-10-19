@@ -1,10 +1,15 @@
 import NotificationIcon from "@/assets/icons/home-notification.svg";
 import Logo from "@/assets/icons/logo.svg";
+import { useAuthStore } from "@/services/stores/auth.store";
 import { Text, XView, YView } from "@/theme/component";
 import { Image } from "expo-image";
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 const HomeHeader = () => {
+
+  const user = useAuthStore((state) => state.user);
+
+  
   return (
     <YView
     paddingHorizontal={"x16"}
@@ -46,7 +51,7 @@ const HomeHeader = () => {
               height: 40,
               width: 40,
             }}
-            source={require("@/assets/images/Avatar.png")}
+            source={user?.avatar_data.avatar_url}
           />
         </TouchableOpacity>
       </XView>

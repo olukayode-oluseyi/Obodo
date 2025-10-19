@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/services/stores/auth.store";
 import { YView } from "@/theme/component";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -11,6 +12,7 @@ import HomeUpcomingEvents from "../components/HomeUpcomingEvents";
 
 const Home = () => {
   const { top, bottom } = useSafeAreaInsets();
+  const user = useAuthStore((state) => state.user);
   return (
     <YView
       flex={1}
