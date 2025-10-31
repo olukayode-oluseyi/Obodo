@@ -31,10 +31,10 @@ const Home = () => {
       >
         <HomeGreetings />
         <HomeInsights />
-        
-          <HomeUpcomingEvents />
-          <HomeTodoList />
-            <HomeTopContributors/>
+
+        <HomeUpcomingEvents />
+        <HomeTodoList />
+        <HomeTopContributors />
       </ScrollView>
     </YView>
   );

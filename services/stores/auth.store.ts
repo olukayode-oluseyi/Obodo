@@ -14,10 +14,12 @@ type AuthState = {
   initializeAuth: () => Promise<void>;
   login: (user: LoginResponse) => Promise<void>;
   isLoggedIn: boolean;
+  isInitialized: boolean;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
+  isInitialized: false,
   user: null,
   token: null,
   userCommunities: null,
@@ -46,6 +48,19 @@ export const useAuthStore = create<AuthState>((set) => ({
   initializeAuth: async () => {
     const token = await SecureStore.getItemAsync("token");
     const userString = await SecureStore.getItemAsync("user");
+    const refreshToken = await SecureStore.getItemAsync("refresh_token");
+
+    console.log("token:", token);
+   
+    if (refreshToken) {
+      //set({ refreshToken, isLoggedIn: true });
+    }
+
+    if (!token) {
+      set({  isLoggedIn: false, isInitialized: true });
+      return;
+    }
+
     if (userString) {
       try {
         const user = JSON.parse(userString);
@@ -54,8 +69,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         // fail silently
       }
     }
-    if (token) {
-      set({ token, isLoggedIn: true });
-    }
+    // At this point, token exists (we returned early if it didn't)
+    set({ token, isLoggedIn: true, isInitialized: true });
   },
 }));

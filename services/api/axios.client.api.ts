@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import { useAuthStore } from '../stores/auth.store';
 /**
  * API Configuration
  * TODO: Move this to environment variables or constants
@@ -58,6 +59,7 @@ api.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = await getAuthToken();
     const refreshToken = await getRefreshToken();
+    console.log("token", token, refreshToken);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -84,82 +86,83 @@ api.interceptors.request.use(
  * Response Interceptor
  * Handles responses and errors globally
  */
-// api.interceptors.response.use(
-//   (response) => {
-//     // Log successful responses in development
-//     if (__DEV__) {
-//       console.log(`✅ API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status);
-//     }
-//     return response;
-//   },
-//   async (error: AxiosError) => {
-//     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+api.interceptors.response.use(
+  (response) => {
+    // Log successful responses in development
+    if (__DEV__) {
+      console.log(`✅ API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status);
+    }
+    return response;
+  },
+  async (error: AxiosError) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-//     if (__DEV__) {
-//       //console.error('❌ API Error:', error.response?.status, error.response?.data);
-//     }
+    if (__DEV__) {
+      //console.error('❌ API Error:', error.response?.status, error.response?.data);
+    }
 
-//     // Handle 401 Unauthorized - Token expired
-//     if (error.response?.status === 401 && !originalRequest._retry) {
-//       originalRequest._retry = true;
+    // Handle 401 Unauthorized - Token expired
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-//       try {
-//         const refreshToken = getRefreshToken();
+      try {
+        const refreshToken = await getRefreshToken();
         
-//         if (refreshToken) {
-//           // Attempt to refresh the token
-//           const response = await axios.post(`${API_CONFIG.baseURL}/auth/refresh-token`, {
-//             refreshToken,
-//           });
+        console.log("refreshTokenxx", refreshToken);
+        if (refreshToken) {
+          // Attempt to refresh the token
+          const response = await axios.post(`${API_CONFIG.baseURL}/auth/refresh-token`, {
+            refreshToken,
+          });
 
-//           if (response.data.success && response.data.data.token) {
-//             const newToken = response.data.data.token;
-//             setAuthToken(newToken);
+          if (response.data.success && response.data.data.token) {
+            const newToken = response.data.data.token;
+            useAuthStore.getState().setToken(newToken);
 
-//             // Update the authorization header with new token
-//             if (originalRequest.headers) {
-//               originalRequest.headers.Authorization = `Bearer ${newToken}`;
-//             }
+            // Update the authorization header with new token
+            if (originalRequest.headers) {
+              originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            }
 
-//             // Retry the original request with new token
-//             return api(originalRequest);
-//           }
-//         }
-//       } catch (refreshError) {
-//         // Refresh token failed - clear tokens and redirect to login
-//         clearTokens();
-//         // TODO: Trigger logout/redirect to login screen
-//         // You might want to emit an event or use a navigation service here
-//         return Promise.reject(refreshError);
-//       }
-//     }
+            // Retry the original request with new token
+            return api(originalRequest);
+          }
+        }
+      } catch (refreshError) {
+        // Refresh token failed - clear tokens and redirect to login
+        clearTokens();
+        // TODO: Trigger logout/redirect to login screen
+        // You might want to emit an event or use a navigation service here
+        return Promise.reject(refreshError);
+      }
+    }
 
-//     // Handle 403 Forbidden
-//     if (error.response?.status === 403) {
-//       // TODO: Handle forbidden access (e.g., show permission error)
-//       console.warn('⛔ Access Forbidden');
-//     }
+    // Handle 403 Forbidden
+    if (error.response?.status === 403) {
+      // TODO: Handle forbidden access (e.g., show permission error)
+      console.warn('⛔ Access Forbidden');
+    }
 
-//     // Handle 404 Not Found
-//     if (error.response?.status === 404) {
-//       console.warn('🔍 Resource Not Found');
-//     }
+    // Handle 404 Not Found
+    if (error.response?.status === 404) {
+      console.warn('🔍 Resource Not Found');
+    }
 
-//     // Handle 500+ Server Errors
-//     if (error.response?.status && error.response.status >= 500) {
-//       console.warn('🔥 Server Error');
-//       // TODO: You might want to show a generic error message to the user
-//     }
+    // Handle 500+ Server Errors
+    if (error.response?.status && error.response.status >= 500) {
+      console.warn('🔥 Server Error');
+      // TODO: You might want to show a generic error message to the user
+    }
 
-//     // Handle Network Errors
-//     if (!error.response) {
-//       //console.warn('🌐 Network Error - No response received');
-//       // TODO: Show network error message to user
-//     }
+    // Handle Network Errors
+    if (!error.response) {
+      //console.warn('🌐 Network Error - No response received');
+      // TODO: Show network error message to user
+    }
 
-//     return Promise.reject(error);
-//   }
-// );
+    return Promise.reject(error);
+  }
+);
 
 export default api;
 

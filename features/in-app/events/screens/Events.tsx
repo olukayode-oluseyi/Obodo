@@ -1,9 +1,10 @@
 import PlusIcon from "@/assets/icons/plus3.svg";
 import PageHeaders from "@/components/ui/common/headers/PageHeaders";
 import useGetUserEvents from "@/hooks/useGetUserEvents";
+import { themes } from "@/theme";
 import { XView, YView } from "@/theme/component";
 import React from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   DataProvider,
@@ -18,8 +19,7 @@ const Events = () => {
   const { width } = Dimensions.get("window");
   const { data, isLoading, isError } = useGetUserEvents();
 
-  console.log("data", data?.data[0].community_username, data?.data[0].title);
-
+  //console.log("data", data?.data[0].community_username, data?.data[0].title);
 
   // const data = React.useMemo(() => {
   //   return [
@@ -32,7 +32,9 @@ const Events = () => {
   // }, []);
 
   const dataProvider = React.useMemo(() => {
-    return new DataProvider((r1, r2) => r1.id !== r2.id).cloneWithRows(data?.data || []);
+    return new DataProvider((r1, r2) => r1.id !== r2.id).cloneWithRows(
+      data?.data || []
+    );
   }, [data]);
 
   const layoutProvider = React.useMemo(() => {
@@ -48,9 +50,8 @@ const Events = () => {
     <YView
       //bottom={bottom}
       backgroundColor={"backgroundTertiary"}
-
       style={{
-        paddingTop: top + 10
+        paddingTop: top + 10,
       }}
       flex={1}
       paddingHorizontal={"x16"}
@@ -74,24 +75,33 @@ const Events = () => {
         <EventTabs
           activeTab={"all"}
           handlePress={function (id: number): void {
-            throw new Error("Function not implemented.");
+            //throw new Error("Function not implemented.");
           }}
         />
         <YView flex={1}>
-          <RecyclerListView
-            layoutProvider={layoutProvider}
-            dataProvider={dataProvider}
-            scrollViewProps={{
-              showsVerticalScrollIndicator: false,
-              contentContainerStyle: {
-                paddingBottom: 200,
-              },
-            }}
-            rowRenderer={(type, item) => <EventCard item={item} />}
-            style={{ flex: 1 }}
-            forceNonDeterministicRendering
-            //canChangeSize
-          />
+          {isLoading ? (
+            <YView flex={1} paddingBottom={'x64'} justifyContent="center" alignItems="center">
+            <ActivityIndicator
+              size="large"
+              color={themes.light.colors.primary}
+            />
+            </YView>
+          ) : (
+            <RecyclerListView
+              layoutProvider={layoutProvider}
+              dataProvider={dataProvider}
+              scrollViewProps={{
+                showsVerticalScrollIndicator: false,
+                contentContainerStyle: {
+                  paddingBottom: 200,
+                },
+              }}
+              rowRenderer={(type, item) => <EventCard item={item} />}
+              style={{ flex: 1 }}
+              forceNonDeterministicRendering
+              //canChangeSize
+            />
+          )}
         </YView>
       </YView>
     </YView>

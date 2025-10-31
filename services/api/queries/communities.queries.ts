@@ -2,7 +2,7 @@
 
 // /v1/users/me
 
-import { CommunityDashboardDataResponse } from "@/services/types/dto/user.dto";
+import { CommunityDashboardDataResponse, UserCommunitiesResponse } from "@/services/types/dto/user.dto";
 import api from "../axios.client.api";
 
 
@@ -13,7 +13,7 @@ import api from "../axios.client.api";
  * Get  user communities
  * @returns Community dashboard data
  */
-export const getUserCommunities= async (): Promise<any> => {
+export const getUserCommunities= async (): Promise<UserCommunitiesResponse> => {
   const response = await api.get<any>("/users/me/communities");
   return response.data;
 };
@@ -24,10 +24,14 @@ export const getUserCommunities= async (): Promise<any> => {
 
 /**
  * Get  community dashboard data
+ * @param communityId - Community ID
  * @returns Community dashboard data
  */
-export const getCommunityDashboardData= async (): Promise<CommunityDashboardDataResponse> => {
-  const response = await api.get<CommunityDashboardDataResponse>("/users/me/dashboard");
+export const getCommunityDashboardData= async (communityId: number | null): Promise<CommunityDashboardDataResponse> => {
+  if (!communityId) {
+    throw new Error("Community ID is required");
+  }
+  const response = await api.get<CommunityDashboardDataResponse>(`/communities/${communityId}/dashboard`);
   return response.data;
 };
 

@@ -5,11 +5,11 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useAuthStore } from "@/services/stores/auth.store";
 import { themes } from "@/theme";
+import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const queryClient = new QueryClient();
@@ -25,7 +25,7 @@ export default function RootLayout() {
 
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
   const [appReady, setAppReady] = useState(false);
-
+  const isInitialized = useAuthStore((state) => state.isInitialized);
   useEffect(() => {
     const prepare = async () => {
       try {
@@ -33,6 +33,7 @@ export default function RootLayout() {
       } catch (e) {
         console.warn("Auth init failed", e);
       } finally {
+        console.log("appReady:", appReady);
         setAppReady(true);
         await SplashScreen.hideAsync(); // hide splash when ready
       }
@@ -42,17 +43,20 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (loaded && appReady) {
+    if (loaded && appReady && isInitialized) {
+      console.log("loaded and appReady");
       SplashScreen.hideAsync();
     }
-  }, [loaded, appReady]);
+  }, [loaded, appReady, isInitialized]);
 
   return (
     <GestureHandlerRootView>
       <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <Stack screenOptions={{ headerShown: false }} />
-        </QueryClientProvider>
+        <PortalProvider>
+          <QueryClientProvider client={queryClient}>
+            <Stack screenOptions={{ headerShown: false }} />
+          </QueryClientProvider>
+        </PortalProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );

@@ -26,12 +26,13 @@ import {
  */
 export const useLogin = () => {
   const router = useRouter();
-  
+
   return useMutation<LoginResponse, Error, LoginInput>({
     mutationFn: loginUser,
     onSuccess: async (data) => {
       // Handle successful login
       console.log("Login successful:", data);
+      console.log("data", data.data);
       await useAuthStore.getState().login(data);
 
       //const userDetails = await useGetUserDetails();
@@ -39,9 +40,7 @@ export const useLogin = () => {
       // You can store user data in state management (Zustand, Context, etc.)
       // Navigate to home screen
 
-
-        router.replace("/(app)/(tabs)");
-
+      router.replace("/(app)/(home)/dashboard");
     },
     onError: (error) => {
       console.log("Login error", error);

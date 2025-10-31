@@ -9,7 +9,7 @@ import { useEffect } from "react";
  */
 export const useGetUserCommunities = () => {
   const { data, error, isLoading, isFetching, refetch, isSuccess } =
-    useQuery<any>({
+    useQuery({
       queryKey: ["user-communities"],
       queryFn: getUserCommunities,
       enabled: useAuthStore.getState().isLoggedIn,
@@ -17,9 +17,11 @@ export const useGetUserCommunities = () => {
 
     useEffect(() => {
         if (isSuccess) {
-          useAuthStore.getState().setUserCommunities(data);
+         // useAuthStore.getState().setUserCommunities(data);
         }
       }, [isSuccess]);
+
+  console.log("dataxx", data);
 
 
     // useEffect(() => {

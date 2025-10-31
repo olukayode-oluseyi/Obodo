@@ -23,7 +23,7 @@ const EventCard = ({ item }: { item: UserEvent }) => {
 
   
   return (
-    <YView backgroundColor={"white"} marginVertical={"s"} borderRadius={"x20"}>
+    <YView backgroundColor={"white"} borderRadius={"x20"}>
       <TouchableOpacity
         onPress={() =>
           router.push({
@@ -66,8 +66,9 @@ const EventCard = ({ item }: { item: UserEvent }) => {
           padding={"x20"}
         >
           <XView flexDirection={"row"} alignItems={"center"} gap={"s"}>
-            {attendeesAvatars.slice(0, 3).map((avatar) => (
+            {attendeesAvatars.slice(0, 3).map((avatar, index) => (
               <Image
+                key={index}
                 style={{
                   height: 28,
                   width: 28,

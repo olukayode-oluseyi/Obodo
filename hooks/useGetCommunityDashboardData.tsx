@@ -4,16 +4,19 @@ import { CommunityDashboardDataResponse } from "@/services/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
+// meant to receive id
 /**
  * Hook for getting user details
  * @returns User details
  */
-export const useGetCommunityDashboardData = () => {
+export const useGetCommunityDashboardData = (
+    communityId: number | null
+) => {
   const { data, error, isLoading, isFetching, refetch, isSuccess } =
     useQuery<CommunityDashboardDataResponse>({
       queryKey: ["community-dashboard-data"],
-      queryFn: getCommunityDashboardData,
-      enabled: useAuthStore.getState().isLoggedIn,
+      queryFn: () => getCommunityDashboardData(communityId),
+      enabled: !!communityId,
     });
 
     useEffect(() => {

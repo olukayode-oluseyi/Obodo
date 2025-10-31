@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/common/button";
 import GoBack from "@/components/ui/common/headers/GoBack";
+import { useAuthStore } from "@/services/stores/auth.store";
 import { YView } from "@/theme/component";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -10,6 +12,8 @@ import UpcomingEvents from "../components/UpcomingEvents";
 
 const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
+  //const { mutate: logout } = useLogout();
+  const logout = useAuthStore((state) => state.logout);
   return (
     <YView
       //bottom={bottom}
@@ -37,6 +41,10 @@ const ProfileScreen = () => {
         <UpcomingEvents/>
         <CommunityPhotos/>
       </ScrollView>
+
+      <Button title="Logout" variant="primary" onPress={() => {
+          logout();
+      }} />
     </YView>
   );
 };
